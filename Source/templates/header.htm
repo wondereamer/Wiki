@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>%title%</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link rel="Stylesheet" type="text/css" href="%root_path%style.css" />
+        <script type="text/javascript" src="%root_path%syntaxhighlighter/scripts/shCore.js"></script>
+        <link type="text/css" rel="Stylesheet" href="%root_path%syntaxhighlighter/styles/shCore.css"/>
+        <link type="text/css" rel="Stylesheet" href="%root_path%syntaxhighlighter/styles/shThemeDefault.css"/>
+        <script type="text/javascript" src="%root_path%jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="%root_path%vimwiki.js"></script>
+    </head>
+
+    <body>
+
+            <div class="content">
+                %content%
+            </div>
+
+        <script src="%root_path%syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var root_path='%root_path%';
+            function path()
+                {
+                    var scripts_path=root_path+'syntaxhighlighter/scripts/';
+                    var args = arguments, result = [];
+                    for(var i = 0; i < args.length; i++)
+                        result.push(args[i].replace('@', scripts_path));
+                    return result
+                };
+                SyntaxHighlighter.autoloader.apply(null, path(
+                            'applescript            @shBrushAppleScript.js',
+                            'actionscript3 as3      @shBrushAS3.js',
+                            'bash shell             @shBrushBash.js',
+                            'powershell ps          @shBrushPowerShell.js',
+                            'coldfusion cf          @shBrushColdFusion.js',
+                            'cpp c                  @shBrushCpp.js',
+                            'c# c-sharp csharp      @shBrushCSharp.js',
+                            'css                    @shBrushCss.js',
+                            'delphi pascal          @shBrushDelphi.js',
+                            'diff patch pas         @shBrushDiff.js',
+                            'erl erlang             @shBrushErlang.js',
+                            'groovy                 @shBrushGroovy.js',
+                            'java                   @shBrushJava.js',
+                            'jfx javafx             @shBrushJavaFX.js',
+                            'js jscript javascript  @shBrushJScript.js',
+                            'perl pl                @shBrushPerl.js',
+                            'php                    @shBrushPhp.js',
+                            'text plain             @shBrushPlain.js',
+                            'py python              @shBrushPython.js',
+                            'ruby rails ror rb      @shBrushRuby.js',
+                            'sass scss              @shBrushSass.js',
+                            'scala                  @shBrushScala.js',
+                            'sql                    @shBrushSql.js',
+                            'vb vbnet               @shBrushVb.js',
+                            'xml xhtml xslt html    @shBrushXml.js'
+                            ));
+            SyntaxHighlighter.config.space=' ';//消除Chrome复制时的空白BUG
+            <!--SyntaxHighlighter.config.clipboardSwf = '"%root_path%syntaxhighlighter/scripts/clipboard.swf'-->
+            <!--SyntaxHighlighter.config.strings = {-->
+                <!--expandSource : '展开代码',-->
+                    <!--viewSource : '查看代码',-->
+                    <!--copyToClipboard : '复制代码',-->
+                    <!--copyToClipboardConfirmation : '代码复制成功',-->
+                    <!--print : '打印',-->
+                    <!--help : '?',-->
+                    <!--alert: '语法高亮\n\n',-->
+                    <!--noBrush : '不能找到刷子: ',-->
+                    <!--brushNotHtmlScript : '刷子没有配置html-script选项',-->
+                    <!--aboutDialog : '<div></div>'-->
+                    <!--}-->
+            
+            SyntaxHighlighter.all();
+            </script>
+        </body>
+    </html>
+

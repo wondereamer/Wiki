@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>python编程标准</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link rel="Stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="syntaxhighlighter/scripts/shCore.js"></script>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shCore.css"/>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shThemeDefault.css"/>
+        <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="vimwiki.js"></script>
+    </head>
+
+    <body>
+
+            <div class="content">
+                
+<div class="toc">
+<ul>
+<li><a href="#toc_1">PEP8 Python 编码规范</a>
+<ul>
+<li><a href="#toc_1.1">一 代码编排</a>
+<li><a href="#toc_1.2">二 文档编排</a>
+<li><a href="#toc_1.3">三 空格的使用</a>
+<li><a href="#toc_1.4">四 注释</a>
+<li><a href="#toc_1.5">五 文档描述</a>
+<li><a href="#toc_1.6">六 命名规范</a>
+<li><a href="#toc_1.7">七 编码建议</a>
+<li><a href="#toc_1.8">Reference</a>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1" class="justcenter">PEP8 Python 编码规范</h1>
+<h2 id="toc_1.1">一 代码编排</h2>
+<ol>
+<li>
+缩进。4个空格的缩进（编辑器都可以完成此功能），不使用Tap，更不能混合使用Tap和空格。
+
+<li>
+每行最大长度79，换行可以使用反斜杠，最好使用圆括号。换行点要在操作符的后边敲回车。
+
+<li>
+<strong>类和top-level函数定义之间空两行；类中的方法定义之间空一行；函数内逻辑无关段落之间空一行；其他地方尽量不要再空行。</strong>
+
+</ol>
+
+<h2 id="toc_1.2">二 文档编排</h2>
+<ol>
+<li>
+<strong>模块内容的顺序：模块说明和docstring—import—globals&amp;constants—其他定义。其中import部分，又按标准、三方和自己编写顺序依次排放，之间空一行。</strong>
+
+<li>
+<strong>不要在一句import中多个库，比如import os, sys不推荐。但是可以 from xx import x1, x2</strong>
+
+<li>
+Wildcard imports (from &lt;module&gt; import *) should be avoided. 
+
+</ol>
+<h2 id="toc_1.3">三 空格的使用</h2>
+<blockquote>
+总体原则，避免不必要的空格。
+</blockquote>
+<ol>
+<li>
+各种右括号前不要加空格。
+
+<li>
+逗号、冒号、分号前不要加空格。
+
+<li>
+函数的左括号前不要加空格。如Func(1)。
+
+<li>
+序列的左括号前不要加空格。如list[2]。
+
+<li>
+操作符左右各加一个空格，不要为了对齐增加空格。
+
+<li>
+<strong>函数默认参数使用的赋值符左右省略空格。</strong>
+
+<li>
+不要将多句语句写在同一行，尽管使用‘；’允许。
+
+<li>
+<strong>if/for/while语句中，即使执行语句只有一句，也必须另起一行。</strong>
+
+</ol>
+
+<h2 id="toc_1.4">四 注释</h2>
+<ol>
+<li>
+注释必须使用英文，最好是完整的句子，首字母大写，句后要有结束符，结束符后跟两个空格，开始下一句。如果是短语，可以省略结束符。
+
+<li>
+块注释，在一段代码前增加的注释。在‘#’后加一空格。段落之间以只有‘#’的行间隔。比如：
+
+</ol>
+
+<h2 id="toc_1.5">五 文档描述</h2>
+<ol>
+<li>
+<strong>为所有的public模块、函数、类、方法写docstrings；非public的没有必要，但是可以写注释（在def的下一行）。</strong>
+
+<li>
+<strong>如果docstring要换行，参考如下例子,不换行都写在同一行就可以了。</strong>
+<pre>
+"""Form a complex number.
+
+Keyword arguments:
+real -- the real part (default 0.0)
+imag -- the imaginary part (default 0.0)
+
+"""
+</pre>
+
+</ol>
+<h2 id="toc_1.6">六 命名规范</h2>
+<blockquote>
+总体原则，新编代码必须按下面命名风格进行，现有库的编码尽量保持风格。
+</blockquote>
+<ol>
+<li>
+不要单独使用小写字母‘l’，大写字母‘O’等容易混淆的字母。
+
+<li>
+模块命名尽量短小，使用全部小写的方式，可以使用下划线。
+
+<li>
+包命名尽量短小，使用全部小写的方式，不可以使用下划线。
+
+<li>
+类的命名使用CapWords的方式，模块内部使用的类采用_CapWords的方式。
+
+<li>
+异常命名使用CapWords+Error后缀的方式。
+
+<li>
+全局变量尽量只在模块内有效，类似C语言中的static。实现方法有两种，一是_<em>all</em>_机制;二是前缀一个下划线。
+
+<li>
+函数命名使用全部小写的方式，可以使用下划线。
+
+<li>
+常量命名使用全部大写的方式，可以使用下划线。
+
+<li>
+类的属性（方法和变量）命名使用全部小写的方式，可以使用下划线。
+
+<li>
+类的属性有3种作用域public、non-public和subclass API，可以理解成C++中的public、private、protected，non-public属性前，前缀一条下划线。
+
+<li>
+类的属性若与关键字名字冲突，后缀一下划线，尽量不要使用缩略等其他方式。
+
+<li>
+为避免与子类属性命名冲突，在类的一些属性前，前缀两条下划线。比如：类Foo中声明__a,访问时，只能通过Foo.<em>Foo</em>_a，避免歧义。如果子类也叫Foo，那就无能为力了。
+
+<li>
+类的方法第一个参数必须是self，而静态方法第一个参数必须是cls。
+
+<li>
+c和c++扩展模块名以下滑线开头比如_socket
+
+</ol>
+<h2 id="toc_1.7">七 编码建议</h2>
+<ol>
+<li>
+编码中考虑到其他python实现的效率等问题，比如运算符‘+’在CPython（Python）中效率很高，都是Jython中却非常低，所以应该采用.join()的方式。
+
+<li>
+尽可能使用‘is’‘is not’取代‘==’，比如if x is not None 要优于if x。
+
+<li>
+使用startswith() and endswith()代替切片进行序列前缀或后缀的检查。比如：
+<pre>
+Yes:  if foo.startswith('bar'):
+No:  if foo[:3] == 'bar':
+</pre>
+
+<li>
+使用isinstance()比较对象的类型。比如
+<pre>
+Yes:  if isinstance(obj, int):
+No:  if type(obj) is type(1):
+</pre>
+
+<li>
+判断序列空或不空，有如下规则
+<pre>
+Yes:  if not seq:
+      if seq:
+No:  if len(seq)
+     if not len(seq)
+</pre>
+
+<li>
+字符串不要以空格收尾。
+
+<li>
+二进制数据判断使用 if boolvalue的方式。
+
+<li>
+如果使用property, 内部不要有计算量大的代码，因为它容易使使用者误。认为计算量很小。
+
+<li>
+使用基于类的异常，每个模块或包都有自己的异常类，此异常类继承自Exception。
+
+<li>
+异常中不要使用裸露的except，except后跟具体的exceptions。
+
+<li>
+异常中try的代码尽可能少。比如：
+<pre class="brush: python">
+try:
+    value = collection[key]
+except KeyError:
+    return key_not_found(key)
+else:
+    return handle_value(value)
+要优于
+try:
+# Too broad!
+    return handle_value(collection[key])
+except KeyError:
+# Will also catch KeyError raised by handle_value()
+    return key_not_found(key)
+</pre>
+
+<li>
+aaa
+<pre class="brush: python">
+# Aligned with opening delimiter
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+# More indentation included to distinguish this from the rest.
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+ ]
+result = some_function_that_takes_arguments(
+    'a', 'b', 'c',
+    'd', 'e', 'f',
+ )
+</pre>
+
+<li>
+bbb 
+<pre class="brush: python">
+def complex(real, imag=0.0):
+    return magic(r=real, i=imag)
+</pre>
+
+<li>
+Always use a def statement instead of an assignment statement that binds a lambda expression directly to a name.
+  Yes: <code>def f(x): return 2*x</code>    No: <code>f = lambda x: 2*x</code>
+
+<li>
+When raising an exception in Python 2, use raise ValueError('message') instead of the older form raise ValueError, 'message'.
+
+<li>
+When implementing ordering operations with rich comparisons, it is best to implement all six operations 
+  (_<em>eq</em>_, _<em>ne</em>_, _<em>lt</em>_, _<em>le</em>_, _<em>gt</em>_, _<em>ge</em>_) rather than relying on other code to only exercise a particular comparison.
+  To minimize the effort involved, the functools.total_ordering() decorator provides a tool to generate missing comparison methods.
+
+<li>
+When a resource is local to a particular section of code, use a with statement to ensure it is cleaned up promptly and 
+  reliably after use. A try/finally statement is also acceptable.
+
+<li>
+When checking if an object is a string, keep in mind that it might be a unicode string too! In Python 2, str and unicode have a 
+  common base class, basestring, so you can do:
+  <code>if isinstance(obj, basestring):</code>
+  Note that in Python 3, unicode and basestring no longer exist (there is only str) and a bytes object is no longer a 
+  kind of string (it is a sequence of integers instead)
+
+<li>
+Don't write string literals that rely on significant trailing whitespace. Such
+  trailing whitespace is visually indistinguishable and some editors (or more
+  recently, reindent.py) will trim them.
+
+<li>
+If operators with different priorities are used, consider adding whitespace around the operators with the lowest priority(ies).
+  Use your own judgment; however, never use more than one space, and always have the same amount of whitespace on both sides of a binary operator.
+<pre class="brush: python">
+Yes:
+i = i + 1
+submitted += 1
+x = x*2 - 1
+hypot2 = x*x + y*y
+c = (a+b) * (a-b)
+No:
+
+i=i+1
+submitted +=1
+x = x * 2 - 1
+hypot2 = x * x + y * y
+c = (a + b) * (a - b)
+</pre>
+
+</ol>
+  
+<h2 id="toc_1.8">Reference</h2>
+<pre>
+http://www.douban.com/note/134971609/
+http://www.python.org/dev/peps/pep-0008/
+</pre>
+
+            </div>
+
+        <script src="syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var root_path='';
+            function path()
+                {
+                    var scripts_path=root_path+'syntaxhighlighter/scripts/';
+                    var args = arguments, result = [];
+                    for(var i = 0; i < args.length; i++)
+                        result.push(args[i].replace('@', scripts_path));
+                    return result
+                };
+                SyntaxHighlighter.autoloader.apply(null, path(
+                            'applescript            @shBrushAppleScript.js',
+                            'actionscript3 as3      @shBrushAS3.js',
+                            'bash shell             @shBrushBash.js',
+                            'powershell ps          @shBrushPowerShell.js',
+                            'coldfusion cf          @shBrushColdFusion.js',
+                            'cpp c                  @shBrushCpp.js',
+                            'c# c-sharp csharp      @shBrushCSharp.js',
+                            'css                    @shBrushCss.js',
+                            'delphi pascal          @shBrushDelphi.js',
+                            'diff patch pas         @shBrushDiff.js',
+                            'erl erlang             @shBrushErlang.js',
+                            'groovy                 @shBrushGroovy.js',
+                            'java                   @shBrushJava.js',
+                            'jfx javafx             @shBrushJavaFX.js',
+                            'js jscript javascript  @shBrushJScript.js',
+                            'perl pl                @shBrushPerl.js',
+                            'php                    @shBrushPhp.js',
+                            'text plain             @shBrushPlain.js',
+                            'py python              @shBrushPython.js',
+                            'ruby rails ror rb      @shBrushRuby.js',
+                            'sass scss              @shBrushSass.js',
+                            'scala                  @shBrushScala.js',
+                            'sql                    @shBrushSql.js',
+                            'vb vbnet               @shBrushVb.js',
+                            'xml xhtml xslt html    @shBrushXml.js'
+                            ));
+            SyntaxHighlighter.config.space=' ';//消除Chrome复制时的空白BUG
+            <!--SyntaxHighlighter.config.clipboardSwf = '"syntaxhighlighter/scripts/clipboard.swf'-->
+            <!--SyntaxHighlighter.config.strings = {-->
+                <!--expandSource : '展开代码',-->
+                    <!--viewSource : '查看代码',-->
+                    <!--copyToClipboard : '复制代码',-->
+                    <!--copyToClipboardConfirmation : '代码复制成功',-->
+                    <!--print : '打印',-->
+                    <!--help : '?',-->
+                    <!--alert: '语法高亮\n\n',-->
+                    <!--noBrush : '不能找到刷子: ',-->
+                    <!--brushNotHtmlScript : '刷子没有配置html-script选项',-->
+                    <!--aboutDialog : '<div></div>'-->
+                    <!--}-->
+            
+            SyntaxHighlighter.all();
+            </script>
+        </body>
+    </html>
+
