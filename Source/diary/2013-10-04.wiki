@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 [[hello today]]
-=======
-[[hello today]]
->>>>>>> 9af3e561e1c01865b8ac619613d91fbaa84bbe51

@@ -59,11 +59,7 @@ h2 {
 }
 h3 {
     font-size: 1.22em;
-<<<<<<< HEAD
     color: red;
-=======
-    color: #df5;
->>>>>>> 9af3e561e1c01865b8ac619613d91fbaa84bbe51
     width: 80%;
     /*border-bottom: 1px dashed #29362E;*/
     /*border-bottom: 1px dashed  rgba(255,230,0,0.1);*/
@@ -182,7 +178,6 @@ textarea {
     color: #fff;
     resize: none;
 }
-<<<<<<< HEAD
 .done0{
     color: yellow;
 
@@ -204,8 +199,6 @@ textarea {
     color: gray;
 
 }
-=======
->>>>>>> 9af3e561e1c01865b8ac619613d91fbaa84bbe51
 
 .tocWrap {
     position: fixed; 
