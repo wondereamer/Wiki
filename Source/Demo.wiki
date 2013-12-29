@@ -1,0 +1,137 @@
+%template header
+%title wondereamer
+%toc 
+ [[index|主页]]
+= Link =
+* [[index|主页]]
+
+= Code = 
+{{{class="brush: python; highlight: [2]"
+ def hello(world):
+     for x in range(10):
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         print("Hello {0} number {1}".format(world, x))
+         
+}}}
+= Block =
+{{{ 
+  Tyger! Tyger! burning bright
+   In the forests of the night,
+    What immortal hand or eye
+     Could frame thy fearful symmetry?
+  In what distant deeps or skies
+   Burnt the fire of thine eyes?
+    On what wings dare he aspire?
+    
+
+     What the hand dare sieze the fire?
+}}}
+
+
+
+%%comment
+----
+
+| h |       |      |    | o   |
+|---|-------|------|----|-----|
+| h | hello | work | ok | ook |
+|---|-------|------|----|-----|
+| h | hello | work | ok | ook |
+
+
+
+
+ | 姓氏         | 名字          | 年龄    | 城市          | 电子邮件                |
+ |--------------|---------------|---------|---------------|-------------------------|
+ | Vladislav    | Pokrishkin    | 31      | 莫斯科        | vlad_pok@smail.com      |
+ | James        | Esfandiary    | 27      | 伊斯坦布尔    | esfandiary@tmail.com    |
+ 
+ | 年   | 最低温度 | 最高温度 |
+ | 1900 | -10      | 25       |
+ | 1910 | -15      | 30       |
+ | 1920 | -10      | 32       |
+ | 1930 | _N/A_    | _N/A_    |
+ | 1940 | -2       | 40       |
+
+ | a  | b  | c | d |
+ | \/ | e  | > | f |
+ | \/ | \/ | > | g |
+ | h  | >  | > | > |
+ 
+= Definition =
+术语 1:: 定义 1
+术语 2:: abc
+:: 定义 2
+:: 定义 3
+    asdfsdf
+
+= List =
+多行列表项： >
+  * 符号列表项 1
+    列表项 1 的续行。
+    列表项 1 的更多续行。
+  * 符号列表项 2
+    * 符号列表子项 1
+      列表子项 1 续行
+      列表子项 1 更多续行。
+    * 符号列表子项 2
+    * 等等。
+
+或者混合使用： >
+  - 符号列表项 1
+  - 符号列表项 2
+    * 符号列表子项 1
+    * 符号列表子项 2
+    * 等等 ...
+      - 等等 ...
+      - ...
+        * hello
+    * 符号列表子项 3
+    * 等等。
+
+有序列表 >
+  # 编号列表项 1
+  # 编号列表项 2
+    # 编号列表子项 1
+    # 编号列表子项 2
+    # 等等 ...
+      # 等等 ...
+      # ...
+    # 编号列表子项 3
+    # 等等。
+
+= list of todo items =
+  * [O] Toggle list item on/off.
+    * [X] Simple toggling between [ ] and [X].
+    * [X] All of a list's subitems should be toggled on/off appropriately.
+    * [X] Toggle child subitems only if current line is list item.
+    - [ ] Parent list item should be toggled depending on it's child items.
+  * [.] Make numbered list items toggleable too.
+  * [o] Add highlighting to list item boxes.
+  * [ ] Add [ ] to the next list item created using o, O or <CR>.
+= Mathematical =
+sssss $ \sum_i a_i^2 = 1 $ sssss
+ {{$%align%
+ \sum_i a_i^2 &= 1 + 1 \\
+ &= 2.
+ }}$
+ 
+ {{$
+ 1 + \frac{q^2}{(1-q)}+\frac{q^6}{(1-q)(1-q^2)}+\cdots = \prod_{j=0}^{\infty}\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, \quad\quad \text{for $|q|<1$}. 
+ }}$
+ = Pictures =
+[[Images/stock/bdsb.png|{{Images/stock/bdsb.png}}]]

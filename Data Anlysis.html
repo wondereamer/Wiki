@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Data Analysis</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link rel="Stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="syntaxhighlighter/scripts/shCore.js"></script>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shCore.css"/>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shThemeDefault.css"/>
+        <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="vimwiki.js"></script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+    <body>
+
+            <div class="content">
+                
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Panda</a>
+<ul>
+<li><a href="#toc_1.1">Series</a>
+<li><a href="#toc_1.2">DataFrame</a>
+<li><a href="#toc_1.3">ReIndex</a>
+<li><a href="#toc_1.4">Index Selection</a>
+<li><a href="#toc_1.5">operation</a>
+<li><a href="#toc_1.6">Function application</a>
+<li><a href="#toc_1.7">sort</a>
+<li><a href="#toc_1.8">summarizing</a>
+</ul>
+<li><a href="#toc_2">Read and Write</a>
+<li><a href="#toc_3">Visualization</a>
+<li><a href="#toc_4">TimeSeries</a>
+<li><a href="#toc_5">TimeZone</a>
+<li><a href="#toc_6">Resample</a>
+<li><a href="#toc_7">Moving Window Functions</a>
+<li><a href="#toc_8">Binary Moving Window Functions</a>
+</ul>
+</div>
+<p>
+<a href="index.html">主页</a>
+</p>
+<h1 id="toc_1">Panda</h1>
+<h2 id="toc_1.1">Series</h2>
+<ol>
+<li>
+We could see Series as a fixed-length, ordered dict
+
+<li>
+Series([1,2,3,4], index=['a','b','c','d'])
+
+<li>
+series(dict)
+
+</ol>
+ 
+<ol>
+<li>
+np.exp(series)
+
+<li>
+series[series&gt;0]
+
+<li>
+'a' in series
+
+<li>
+pd.isnull(), pd.notnull()
+
+<li>
+series.name, series.index.name
+
+<li>
+series.index=['new1', 'new2', 'new3', 'new4']
+
+</ol>
+<h2 id="toc_1.2">DataFrame</h2>
+<ol>
+<li>
+DataFrame({'Nevada': {2001: 2.4, 2002: 2.9}, 'Ohio': {2000: 1.5, 2001: 1.7, 2002: 3.6}})
+
+<li>
+DataFrame({'a':[1,2,3] 'b':[1,2,3]})
+
+<li>
+DataFrame({'a':series1 'b':series2})
+
+<li>
+DataFrame(data, columns=['a','b'])
+
+<li>
+DataFrame(data, columns=['a','b'], index=['one','two', 'three'])
+
+<li>
+DataFrame(list of series)                     // row by row
+
+<li>
+DataFrame(list of lists or tuples)             // row by row
+
+</ol>
+
+<ol>
+<li>
+frame.ix('one')
+
+<li>
+frame.a = 1
+
+<li>
+frame.a = series
+
+<li>
+frame.['new_column'] = series
+
+<li>
+frame.T
+
+<li>
+frame.index.name, frame.columns.name, frame.values
+
+</ol>
+<h2 id="toc_1.3">ReIndex</h2>
+<ol>
+<li>
+series.reindex(['a','b','c'], fill_value=0)
+
+<li>
+frame.reindex(list)
+
+<li>
+frame.reindex(columns=list)
+
+<li>
+frame.ix[index_list, columns_list]
+
+</ol>
+
+<ol>
+<li>
+series.drop('c'), series.drop(list)
+
+<li>
+frame.drop(list) //row
+
+<li>
+frame.drop(list, axis=1) //columns
+
+</ol>
+<h2 id="toc_1.4">Index Selection</h2>
+<ol>
+<li>
+obj[list]
+
+<li>
+frame[frame['column']&gt;3]
+
+<li>
+frame&lt;5
+
+<li>
+frame[frame&lt;5]=3
+
+<li>
+frame.ix[row_list, columns_list]
+
+<li>
+frame.ix[frame['column']&gt;5, 3:]
+
+<li>
+start = df.index.searchsorted(dt.datetime(2013, 1, 2))    // search the nearest range, even start and end don't exit 
+  end = df.index.searchsorted(dt.datetime(2013, 1, 4))
+
+</ol>
+ 
+<h2 id="toc_1.5">operation</h2>
+<ol>
+<li>
+df1 + df2
+
+<li>
+df1.add(df2, fill_value=0)
+
+<li>
+frame - series                            // row by row
+
+<li>
+frame.sub(series, axis=0)
+
+</ol>
+<h2 id="toc_1.6">Function application</h2>
+<ol>
+<li>
+np.abs(frame)
+
+<li>
+frame.apply(f), frame.apply(f, axis=1)   // f could return a value or a series of multiple values
+
+<li>
+frame.applymap(f),  series.map(f)
+
+</ol>
+<h2 id="toc_1.7">sort</h2>
+<ol>
+<li>
+frame.sort_index(),  frame.sort_index(axis=1)
+
+<li>
+frame.sort_index(by=columns_list)
+
+<li>
+series.sort_index(), series.order()
+
+<li>
+series.rank(method="first", ascending=False), frame.rank(axis=1)
+
+<li>
+obj.index.is_unique
+
+</ol>
+<h2 id="toc_1.8">summarizing</h2>
+<ol>
+<li>
+frame.sum(), frame.sum(axis=1), frame.mean(skipna=False), frame.idxmax(),
+  frame.cumsum(), frame.describe()
+
+<li>
+some other important statistics
+
+</ol>
+
+<ol>
+<li>
+series.unique(), series.value_counts(sort=False), pd.value_counts(list, sort=False)
+
+<li>
+mask=series.isin(list), series[mask]
+
+<li>
+frame.apply(pd.value_counts).fillna(0)           // histogram on multiple related columns
+
+</ol>
+
+<ol>
+<li>
+obj.dropna(how='all'), df.fillna(0), df.fillna(columns_dict, inplace=True)
+
+</ol>
+<h1 id="toc_2">Read and Write</h1>
+<ol>
+<li>
+pd.read_csv(fname, skiprows=[0,1,2]), pd.read_csv(fname, nrows=5)
+
+<li>
+pd.read_csv(fname, na_values=['NULL'])
+
+<li>
+pd.read_csv(fname, chunksize=1000)                // return ann iterator
+
+<li>
+data.to_csv(fname)
+
+<li>
+data.to_csv(sys.stdout, sep='|', na_rep='NULL', index=False, header=False, cols=[])
+
+<li>
+pd.read_csv(fname, index_col=0, parse_dates=True)
+
+<li>
+Series.from_csv(fname, parse_dates=True)
+
+<li>
+frame.save(pickle_fname), pd.load(pickle_fname)
+
+<li>
+store=pd.HDFStore('mydata.h5'), store['obj']=obj
+
+</ol>
+<h1 id="toc_3">Visualization</h1>
+<ol>
+<li>
+ax.legend(loc='best')
+
+<li>
+obj.ix['2009'].plot()
+
+</ol>
+<h1 id="toc_4">TimeSeries</h1>
+<ol>
+<li>
+now=datetime.now()
+
+<li>
+delta=datetime(2011,7,1)-datetime(2010,7,1),  delta.days, delta.seconds
+
+<li>
+start+timedelta(12), str(stamp), stamp.strftime('%Y-%m-%d') // P292
+
+<li>
+parse('2011-01-03')           // from dateutil.parser import parse
+
+<li>
+ts['20110106'], ts['201101'], ts['':''], ts.truncate(after='1/9/2011')
+
+<li>
+tframe.ix['5/2011']
+
+<li>
+dup_ts.groupby(level=0)
+
+<li>
+pd.date_range(start='4/1/2012', periods=20)
+
+<li>
+pd.date_range('4/1/2012', '4/3/2012', freq='4h30min')
+
+<li>
+ts.shift(2)
+
+<li>
+offset=MonthEnd(), ts.groupby(offset.rollforward).mean()
+
+</ol>
+<h1 id="toc_5">TimeZone</h1>
+<ol>
+<li>
+pytz.common_timezones
+
+<li>
+ts_utc=ts.tz_localize('UTC')
+
+<li>
+us_utc.tz_convert('US/Eastern')
+
+</ol>
+<h1 id="toc_6">Resample</h1>
+<ol>
+<li>
+ts.resample('5min', how='sum', closed='left', label='left')
+
+</ol>
+<h1 id="toc_7">Moving Window Functions</h1>
+<h1 id="toc_8">Binary Moving Window Functions</h1>
+
+            </div>
+
+        <script src="syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var root_path='';
+            function path()
+                {
+                    var scripts_path=root_path+'syntaxhighlighter/scripts/';
+                    var args = arguments, result = [];
+                    for(var i = 0; i < args.length; i++)
+                        result.push(args[i].replace('@', scripts_path));
+                    return result
+                };
+                SyntaxHighlighter.autoloader.apply(null, path(
+                            'applescript            @shBrushAppleScript.js',
+                            'actionscript3 as3      @shBrushAS3.js',
+                            'bash shell             @shBrushBash.js',
+                            'powershell ps          @shBrushPowerShell.js',
+                            'coldfusion cf          @shBrushColdFusion.js',
+                            'cpp c                  @shBrushCpp.js',
+                            'c# c-sharp csharp      @shBrushCSharp.js',
+                            'css                    @shBrushCss.js',
+                            'delphi pascal          @shBrushDelphi.js',
+                            'diff patch pas         @shBrushDiff.js',
+                            'erl erlang             @shBrushErlang.js',
+                            'groovy                 @shBrushGroovy.js',
+                            'java                   @shBrushJava.js',
+                            'jfx javafx             @shBrushJavaFX.js',
+                            'js jscript javascript  @shBrushJScript.js',
+                            'perl pl                @shBrushPerl.js',
+                            'php                    @shBrushPhp.js',
+                            'text plain             @shBrushPlain.js',
+                            'py python              @shBrushPython.js',
+                            'ruby rails ror rb      @shBrushRuby.js',
+                            'sass scss              @shBrushSass.js',
+                            'scala                  @shBrushScala.js',
+                            'sql                    @shBrushSql.js',
+                            'vb vbnet               @shBrushVb.js',
+                            'xml xhtml xslt html    @shBrushXml.js'
+                            ));
+            SyntaxHighlighter.config.space=' ';//消除Chrome复制时的空白BUG
+            <!--SyntaxHighlighter.config.clipboardSwf = '"syntaxhighlighter/scripts/clipboard.swf'-->
+            <!--SyntaxHighlighter.config.strings = {-->
+                <!--expandSource : '展开代码',-->
+                    <!--viewSource : '查看代码',-->
+                    <!--copyToClipboard : '复制代码',-->
+                    <!--copyToClipboardConfirmation : '代码复制成功',-->
+                    <!--print : '打印',-->
+                    <!--help : '?',-->
+                    <!--alert: '语法高亮\n\n',-->
+                    <!--noBrush : '不能找到刷子: ',-->
+                    <!--brushNotHtmlScript : '刷子没有配置html-script选项',-->
+                    <!--aboutDialog : '<div></div>'-->
+                    <!--}-->
+            
+            SyntaxHighlighter.all();
+            </script>
+        </body>
+    </html>
+

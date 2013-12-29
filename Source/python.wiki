@@ -1,6 +1,7 @@
 %template header
 %title python编程标准
 %toc 
+[[index|主页]]
  = PEP8 Python 编码规范 =
 == 一 代码编排 ==
 # 缩进。4个空格的缩进（编辑器都可以完成此功能），不使用Tap，更不能混合使用Tap和空格。

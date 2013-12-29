@@ -59,7 +59,7 @@ h2 {
 }
 h3 {
     font-size: 1.22em;
-    color: #df5;
+    color: red;
     width: 80%;
     /*border-bottom: 1px dashed #29362E;*/
     /*border-bottom: 1px dashed  rgba(255,230,0,0.1);*/
@@ -177,6 +177,27 @@ textarea {
     background: transparent;
     color: #fff;
     resize: none;
+}
+.done0{
+    color: yellow;
+
+}
+
+.done1{
+    color: red;
+
+}
+.done2{
+    color: blue;
+
+}
+.done3{
+    color: green;
+
+}
+.done4{
+    color: gray;
+
 }
 
 .tocWrap {

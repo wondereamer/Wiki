@@ -1,0 +1,11 @@
+# yield 返回generator
+# sys.path 系统路径，可以在这里添加模块搜索路径
+# np.sum(n * np.diff(bins))
+  I get a return value of 1.0 as expected. Remember that normed=True doesn't mean that the sum of 
+  the value at each bar will be unity, but rather than the integral over the bars is unity.
+# ipython -pylab
+# blist -- package
+# bottleneck -- package
+# matplotlib.plot "visible" attribution could hide some detail
+# list 加上 numpy类型，会把list 转化为numpy类型的数组，然后运算，且返回numpy类型的数组 也就是说Python有运算符重载功能！
+# cursor 占用两条线ax.lines  ax.axhline()占用一条线

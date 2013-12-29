@@ -1,0 +1,108 @@
+%template header
+%title Data Analysis
+%toc 
+[[index|ึ๗าณ]]
+= Panda =
+== Series ==
+# We could see Series as a fixed-length, ordered dict
+# Series([1,2,3,4], index=['a','b','c','d'])
+# series(dict)
+ 
+# np.exp(series)
+# series[series>0]
+# 'a' in series
+# pd.isnull(), pd.notnull()
+# series.name, series.index.name
+# series.index=['new1', 'new2', 'new3', 'new4']
+== DataFrame == 
+# DataFrame({'Nevada': {2001: 2.4, 2002: 2.9}, 'Ohio': {2000: 1.5, 2001: 1.7, 2002: 3.6}})
+# DataFrame({'a':[1,2,3] 'b':[1,2,3]})
+# DataFrame({'a':series1 'b':series2})
+# DataFrame(data, columns=['a','b'])
+# DataFrame(data, columns=['a','b'], index=['one','two', 'three'])
+# DataFrame(list of series)                     // row by row
+# DataFrame(list of lists or tuples)             // row by row
+
+# frame.ix('one')
+# frame.a = 1
+# frame.a = series
+# frame.['new_column'] = series
+# frame.T
+# frame.index.name, frame.columns.name, frame.values
+== ReIndex == 
+# series.reindex(['a','b','c'], fill_value=0)
+# frame.reindex(list)
+# frame.reindex(columns=list)
+# frame.ix[index_list, columns_list]
+
+# series.drop('c'), series.drop(list)
+# frame.drop(list) //row
+# frame.drop(list, axis=1) //columns
+== Index Selection ==
+# obj[list]
+# frame[frame['column']>3]
+# frame<5
+# frame[frame<5]=3
+# frame.ix[row_list, columns_list]
+# frame.ix[frame['column']>5, 3:]
+# start = df.index.searchsorted(dt.datetime(2013, 1, 2))    // search the nearest range, even start and end don't exit 
+  end = df.index.searchsorted(dt.datetime(2013, 1, 4))
+ 
+== operation ==
+# df1 + df2
+# df1.add(df2, fill_value=0)
+# frame - series                            // row by row
+# frame.sub(series, axis=0)
+== Function application ==
+# np.abs(frame)
+# frame.apply(f), frame.apply(f, axis=1)   // f could return a value or a series of multiple values
+# frame.applymap(f),  series.map(f)
+== sort ==
+# frame.sort_index(),  frame.sort_index(axis=1)
+# frame.sort_index(by=columns_list)
+# series.sort_index(), series.order()
+# series.rank(method="first", ascending=False), frame.rank(axis=1)
+# obj.index.is_unique
+== summarizing ==
+# frame.sum(), frame.sum(axis=1), frame.mean(skipna=False), frame.idxmax(),
+  frame.cumsum(), frame.describe()
+# some other important statistics
+
+# series.unique(), series.value_counts(sort=False), pd.value_counts(list, sort=False)
+# mask=series.isin(list), series[mask]
+# frame.apply(pd.value_counts).fillna(0)           // histogram on multiple related columns
+
+# obj.dropna(how='all'), df.fillna(0), df.fillna(columns_dict, inplace=True)
+= Read and Write =
+# pd.read_csv(fname, skiprows=[0,1,2]), pd.read_csv(fname, nrows=5)
+# pd.read_csv(fname, na_values=['NULL'])
+# pd.read_csv(fname, chunksize=1000)                // return ann iterator
+# data.to_csv(fname)
+# data.to_csv(sys.stdout, sep='|', na_rep='NULL', index=False, header=False, cols=[])
+# pd.read_csv(fname, index_col=0, parse_dates=True)
+# Series.from_csv(fname, parse_dates=True)
+# frame.save(pickle_fname), pd.load(pickle_fname)
+# store=pd.HDFStore('mydata.h5'), store['obj']=obj
+= Visualization =
+# ax.legend(loc='best')
+# obj.ix['2009'].plot()
+= TimeSeries =
+# now=datetime.now()
+# delta=datetime(2011,7,1)-datetime(2010,7,1),  delta.days, delta.seconds
+# start+timedelta(12), str(stamp), stamp.strftime('%Y-%m-%d') // P292
+# parse('2011-01-03')           // from dateutil.parser import parse
+# ts['20110106'], ts['201101'], ts['':''], ts.truncate(after='1/9/2011')
+# tframe.ix['5/2011']
+# dup_ts.groupby(level=0)
+# pd.date_range(start='4/1/2012', periods=20)
+# pd.date_range('4/1/2012', '4/3/2012', freq='4h30min')
+# ts.shift(2)
+# offset=MonthEnd(), ts.groupby(offset.rollforward).mean()
+= TimeZone =
+# pytz.common_timezones
+# ts_utc=ts.tz_localize('UTC')
+# us_utc.tz_convert('US/Eastern')
+= Resample =
+# ts.resample('5min', how='sum', closed='left', label='left')
+= Moving Window Functions =
+= Binary Moving Window Functions =

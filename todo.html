@@ -1,26 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>%title%</title>
+        <title>ToDo</title>
         <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-        <link rel="Stylesheet" type="text/css" href="%root_path%style.css" />
-        <script type="text/javascript" src="%root_path%syntaxhighlighter/scripts/shCore.js"></script>
-        <link type="text/css" rel="Stylesheet" href="%root_path%syntaxhighlighter/styles/shCore.css"/>
-        <link type="text/css" rel="Stylesheet" href="%root_path%syntaxhighlighter/styles/shThemeDefault.css"/>
-        <script type="text/javascript" src="%root_path%jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="%root_path%vimwiki.js"></script>
+        <link rel="Stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="syntaxhighlighter/scripts/shCore.js"></script>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shCore.css"/>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shThemeDefault.css"/>
+        <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="vimwiki.js"></script>
         <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
 
     <body>
 
             <div class="content">
-                %content%
+                
+<div class="toc">
+<ul>
+<li><a href="#toc_1">ToDoList</a>
+</ul>
+</div>
+<p>
+<a href="index.html">主页</a>
+</p>
+<h1 id="toc_1" class="justcenter">ToDoList</h1>
+<hr />
+<ul>
+<li class="done0">
+趋势系统
+
+<li class="done4">
+从业资格证
+
+<li class="done0">
+概率工具包
+
+<li class="done0">
+数据分析模块
+
+<li class="done0">
+CTP
+
+<li class="done0">
+资金组合
+
+<li class="done0">
+数学
+
+</ul>
+
             </div>
 
-        <script src="%root_path%syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script src="syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
         <script type="text/javascript">
-            var root_path='%root_path%';
+            var root_path='';
             function path()
                 {
                     var scripts_path=root_path+'syntaxhighlighter/scripts/';
@@ -57,7 +91,7 @@
                             'xml xhtml xslt html    @shBrushXml.js'
                             ));
             SyntaxHighlighter.config.space=' ';//消除Chrome复制时的空白BUG
-            <!--SyntaxHighlighter.config.clipboardSwf = '"%root_path%syntaxhighlighter/scripts/clipboard.swf'-->
+            <!--SyntaxHighlighter.config.clipboardSwf = '"syntaxhighlighter/scripts/clipboard.swf'-->
             <!--SyntaxHighlighter.config.strings = {-->
                 <!--expandSource : '展开代码',-->
                     <!--viewSource : '查看代码',-->
