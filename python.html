@@ -111,14 +111,39 @@ Wildcard imports (from &lt;module&gt; import *) should be avoided.
 <pre>
 """Form a complex number.
 
-Keyword arguments:
-real -- the real part (default 0.0)
-imag -- the imaginary part (default 0.0)
-
+Args:
+    name (str): The name to use
+    state (bool): Blablabla..
+    
+Returns:
+    int. The result
+    
+Raises:
+    KeyError
 """
 </pre>
 
+<li>
+对于不是一目了然的代码，在行为添加注释
+<pre>
+# We use a weighted dictionary search to find out where i is in
+# the array.  We extrapolate position based on the largest num
+# in the array and the array size and then do binary search to
+# get the exact number.
+
+if i &amp; (i-1) == 0:        # true iff i is a power of 2
+
+</pre>
+
+<li>
+类中如果有公共属性，要加"Attributes:" 描述
+
+<li>
+TODO(kl@gmail.com): Drop the use of "has_key".
+  TODO(Zeke) change this to use relations.
+
 </ol>
+ 
 <h2 id="toc_1.6">六 命名规范</h2>
 <blockquote>
 总体原则，新编代码必须按下面命名风格进行，现有库的编码尽量保持风格。
@@ -205,6 +230,10 @@ No:  if len(seq)
 二进制数据判断使用 if boolvalue的方式。
 
 <li>
+在Python中, 对于琐碎又不太重要的访问函数, 你应该直接使用公有变量来取代它们, 这样可以避免额外的函数调用开销. 
+  当添加更多功能时, 你可以用属性(property)来保持语法的一致性.
+
+<li>
 如果使用property, 内部不要有计算量大的代码，因为它容易使使用者误。认为计算量很小。
 
 <li>
@@ -232,7 +261,7 @@ except KeyError:
 </pre>
 
 <li>
-aaa
+对齐风格
 <pre class="brush: python">
 # Aligned with opening delimiter
 foo = long_function_name(var_one, var_two,
@@ -256,11 +285,8 @@ result = some_function_that_takes_arguments(
 </pre>
 
 <li>
-bbb 
-<pre class="brush: python">
-def complex(real, imag=0.0):
-    return magic(r=real, i=imag)
-</pre>
+在Python中, pychecker, pydoc以及单元测试要求模块必须是可导入的. 
+  你的代码应该在执行主程序前总是检查 if _<em>name</em>_ == '_<em>main</em>_' , 这样当模块被导入时主程序就不会被执行
 
 <li>
 Always use a def statement instead of an assignment statement that binds a lambda expression directly to a name.

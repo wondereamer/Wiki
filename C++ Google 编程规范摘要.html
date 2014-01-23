@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C++ Google 编程规范摘要</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+        <link rel="Stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="syntaxhighlighter/scripts/shCore.js"></script>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shCore.css"/>
+        <link type="text/css" rel="Stylesheet" href="syntaxhighlighter/styles/shThemeDefault.css"/>
+        <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="vimwiki.js"></script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+
+    <body>
+
+            <div class="content">
+                
+<div class="toc">
+<ul>
+<li><a href="#toc_1">C++ Google 编程规范摘要</a>
+<ul>
+<li><a href="#toc_1.1">好的编程建议</a>
+<li><a href="#toc_1.2">约定, 这是我们要尽量遵循的编程风格, 便于交流。</a>
+<ul>
+<li><a href="#toc_1.2.1">命名和使用风格</a>
+<li><a href="#toc_1.2.2">注释</a>
+<li><a href="#toc_1.2.3">排版</a>
+</ul>
+</ul>
+</ul>
+</div>
+<p>
+<a href="index.html">主页</a>
+</p>
+<h1 id="toc_1">C++ Google 编程规范摘要</h1>
+<h2 id="toc_1.1">好的编程建议</h2>
+<ol>
+<li>
+不要将嵌套类定义为共有，除非它们是接口的一部分。
+
+<li>
+使用静态成员函数或名字空间内的非成员函数, 尽量不要用裸的全局函数。
+
+<li>
+提倡在尽可能小的作用域中声明变量, 离第一次使用越近越好。
+
+<li>
+通常，构造函数应仅用于设置成员变量的初始值。任何复杂的初始化操作都应该放到明确的 Init() 方法中。
+
+<ul>
+<li>
+构造函数中很难上报错误, 不能使用异常。
+
+<li>
+操作失败会造成对象初始化失败，进入不确定状态。
+
+<li>
+如果在构造函数内调用了自身的虚函数, 这类调用是不会重定向到子类的虚函数实现. 即使 当前没有子类化实现, 将来仍是隐患.
+
+<li>
+如果有人创建该类型的全局变量(虽然违背了上节提到的规则), 构造函数将先main() 一 步被调用,
+      <br/>
+      有可能破坏构造函数中暗含的假设条件. 例如, gflags 尚未初始化。
+
+</ul>
+<li>
+如果一个类定义了若干成员变量又没有其它构造函数, 必须定义一个默认构造函数。
+  <br/>
+  否则编译器将自动生产一个很糟糕的默认构造函数。
+
+<li>
+对单个参数的构造函数使用C++ 关键字explicit。
+  <br/>
+ 在极少数情况下, 拷贝构造函数可以不声明成explicit。
+  <br/>
+ 作为其它类的透明包装器的 类也是特例之一。
+
+<li>
+仅在必要时才定义拷贝构造函数和重载赋值运算符。否则应使用 DISAL-LOW_COPY_AND_ASSIGN 禁用它们。
+  <br/>
+  优先考虑定义拷贝方法，比如CopyFrom() 或Clone()，而不是拷贝构造函数，因为这类方法不能被隐式调用。
+  <br/>
+  大多数拷贝构造函数和赋值运算符重载都不需要。大多数情况下，指针或引用和值拷贝一样能解决问题，性能还更好。
+  <br/>
+
+<li>
+仅当只有数据时使用struct, 其它一概使用class。除了构造函数, 析构函数, 
+  <br/>
+  Initialize(), Reset(), Validate() 外, 不能提供其它功能的函数。
+
+<li>
+使用组合比继承更合理，如果要继承定义为public继承。
+  <br/>
+  实现继承, 由于子类的实现代码散布在父类和子类间之间, 要理解其实现变得更加困难
+
+<li>
+真正需要用到多重实现继承的情况少之又少. 只在以下情况我们才允许多重继承: 最多只有
+  <br/>
+  一个基类是非抽象类; 其它基类都是以Interface 为后缀的纯接口类。
+
+<li>
+接口是指满足特定条件的类, 这些类以Interface 为后缀(不强制)。
+  <br/>
+  接口的定义:
+
+<ul>
+<li>
+只有纯虚函数(“=0”) 和静态函数(除了下文提到的析构函数).
+
+<li>
+没有非静态数据成员.
+
+<li>
+没有定义任何构造函数. 如果有, 也不能带有参数, 并且必须为protected.
+
+<li>
+如果它是一个子类, 也只能从满足上述条件并以Interface 为后缀的类继承
+
+</ul>
+<li>
+倾向编写简短, 凝练的函数。
+
+<li>
+如果确实需要使用智能指针的话, scoped_ptr完全可以胜任。
+  <br/>
+  你应该只在非常特定的情况。下使用std::tr1::shared_ptr, 例如STL 容器中的对象。任何情况下都不要使用auto_ptr
+  <br/>
+  倾向于设计对象隶属明确的代码, 最明确的对象隶属是根本不使用指针, 直接将对象 作为一个作用域或局部变量使用
+
+<li>
+仅当代码阅读者查看调用点时能一眼就能理解所做操作，而无须先弄清楚所调用的是哪个重载 函数时，才使用使用重载函数（含构造函数）
+
+<li>
+如果你想重载一个函数, 考虑让函数名包含参数信息, 例如, 使用AppendString(), AppendInt() 而不是Append().
+
+<li>
+不推荐使用缺省函数，大家通常都是通过查看别人的代码来推断如何使用API。用了缺省参数的代码更难维护。
+
+<li>
+通常友元应该定义在同一文件内, 避免代码读者跑到其它文件查找使用该私有成员的类。
+  <br/>
+  友元扩大了(但没有打破) 类的封装边界. 某些情况下, 相对于将类成员声明为public, 使用友元
+  <br/>
+  是更好的选择, 尤其是如果你只允许另一个类访问该类的私有成员时。
+
+<li>
+不使用C++异常。
+
+<li>
+除单元测试外, 不要使用RTTI。如果你需要在运行期间确定一个对象的类型,
+  <br/>
+  这通常说明你需要考虑重新设计你的类。typeid, dynamic_cast。
+
+<li>
+对于迭代器和其他模板对象使用前缀形式(++i) 的自增, 自减运算符。
+
+<li>
+我们强烈建议你在任何可能的情况下都要使用const。缺点：
+  <br/>
+  const是入侵性的: 如果你向一个函数传入const 变量, 函数原型声明中也必须对应
+  <br/>
+  const参数(否则变量需要const_cast 类型转换), 在调用库函数时显得尤其麻烦。
+
+<li>
+尽量不使用宏，尽量不再.h文件中使用宏。
+
+<li>
+尽可能用sizeof(varname) 代替sizeof(type)。因为当代码中变量类型改变时会自动更新。
+
+<li>
+在循环作用域外面声明某些变量要高效的多:
+<pre class="brush: c++">
+Foo f; // 构造函数和?构函数只调用1 次
+for (int i = 0; i &lt; 1000000; ++i) {
+f.DoSomething(i);
+}
+</pre>
+
+<li>
+只有当函数只有10 行甚至更少时才将其定义为内联函数，函数中最好不要包括循环和switch语句。
+
+</ol>
+
+
+
+<h2 id="toc_1.2">约定, 这是我们要尽量遵循的编程风格, 便于交流。</h2>
+<h3 id="toc_1.2.1">命名和使用风格</h3>
+<ol>
+<li>
+只使用空格, 每次缩进使用一个tab。（注意，要让编辑器自动把tab转化为空格）
+
+<li>
+把数据成员声明为private，并根据需要提供存取函数。
+
+<li>
+整数用0, 实数用0.0, 指针用NULL, 字符(串) 用'\0'。
+
+<li>
+函数参数顺序：（输入参数， 输出参数），其中输入参数：const引用类型。输出参数：指针类型。
+  要远胜过要用注释解释的含糊不清的名字
+
+<li>
+类型和变量应该是名词, 尽量不用缩写。
+
+<li>
+注释固然很重要, 但最好的代码本身应该是自文档化. 有意义的类型名和变量名, 
+  <br/>
+
+<li>
+文件名要全部小写, 可以包含下划线(_) 或连字符(-)。
+
+<li>
+类型名称的每个单词首字母均大写, 不包含下划线: MyExcitingClass。
+  <br/>
+  所有类型命名——类, 结构体, 类型定义(typedef), 枚举——均使用相同约定。
+
+<li>
+变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 结构体的成员变量不用接下划线。
+  <br/>
+  建议全局变量可加g_前缀。 在常量名称前加k: kDaysInAWeek
+
+<li>
+常规函数使用大小写混合, 取值和设值函数则要求与变量名匹配:
+  <br/>
+  MyExcitingFunction(), MyExcitingMethod(), 
+  <br/>
+  my_exciting_member_variable(), set_my_exciting_member_variable().
+
+<li>
+如果函数发生错误后会崩溃，你应该在函数名后追加OrDie 。这只适用于可发布代码中的函数，
+  <br/>
+  以及很有可能在常规操作过程中发生的异常。
+
+<li>
+枚举名 
+<pre class="brush: c++">
+enum UrlTableErrors {
+    kOK = 0,
+    kErrorOutOfMemory,
+    kErrorMalformedInput,
+};
+</pre>
+
+<li>
+宏名格式: MY_MACRO_THAT_SCARES_SMALL_CHILDREN
+
+<li>
+如果你命名的实体与已有C/C++ 实体相似, 可参考现有命名策略。
+  <br/>
+  如：sparse_hash_map:    STL 相似实体; 参照STL 命名约定。
+
+</ol>
+  
+
+
+<h3 id="toc_1.2.2">注释</h3>
+<ol>
+<li>
+使用// 或/* */, 统一就好.
+
+<li>
+在每一个文件开头加入版权公告, 然后是文件内容描述.
+
+<li>
+通常, .h 文件要对所声明的类的功能和用法作简单说明. .cc 文件通常包含了更多的实现细节
+  <br/>
+  或算法技巧讨论, 如果你感觉这些实现细节或算法技巧讨论对于理解.h 文件有帮助, 可以该注
+  <br/>
+  释挪到.h, 并在.cc 中指出文档在.h。
+
+<li>
+每个类的定义都要附带一份注释, 描述类的功能和用法。
+
+<li>
+如果变量可以接受NULL 或-1 等警戒值, 须加以说明。
+
+<li>
+巧妙或复杂的代码段前要加注释。
+  <br/>
+  比较隐晦的地方要在行尾加入注释. 在行尾空两格进行注释。
+
+<li>
+NULL, true/false, 1, 2, 3...:向函数传入NULL, 布尔值或整数时, 要注释说明含义, 或使用常量让代码望文知意.
+<pre class="brush: c++">
+bool success = CalculateSomething(interesting_value,
+                                  10, // Default base value.
+                                  false, // Not the first time we’re calling this.
+                                  NULL); // No callback.
+</pre>
+
+<li>
+对那些临时的, 短期的解决方案, 或已经够好但仍不完美的代码使用TODO 注释。
+  <br/>
+  // TODO(kl@gmail.com): Use a ”*” here for concatenation operator.
+  <br/>
+  // TODO(Zeke) change this to use relation
+
+<li>
+函数声明处注释描述函数功能; 定义处描述函数实现（如何工作）。
+  函数声明处注释的内容:
+
+<ul>
+<li>
+函数的输入输出.
+
+<li>
+对类成员函数而言: 函数调用期间对象是否需要保持引用参数, 是否会释放这些参数.
+
+<li>
+如果函数分配了空间, 需要由调用者释放.
+
+<li>
+参数是否可以为NULL.
+
+<li>
+是否存在函数使用上的性能隐患.
+
+<li>
+如果函数是可重入的, 其同步前提是什么?
+
+</ul>
+</ol>
+
+<h3 id="toc_1.2.3">排版</h3>
+<ol>
+<li>
+每一行代码字符数不超过80。
+
+<li>
+定义宏，避免多重包含，其中宏名依据所在项目源代码树的全路径 
+<pre class="brush: c++;">
+   #ifndef FOO_BAR_BAZ_H_ 
+   #define FOO_BAR_BAZ_H_
+        ...
+   #ifndef FOO_BAR_BAZ_H_
+</pre>
+
+<li>
+cpp文件中包含头文件的顺序：
+
+<ul>
+<li>
+cpp文件对应的头文件
+
+<li>
+c 系统文件
+
+<li>
+c++ 系统文件
+
+<li>
+其它第三方库的文件
+
+<li>
+本项目内的文件
+  在保持次分类排序的情况下再按字母顺序排序
+
+</ul>
+<li>
+鼓励在cpp文件中使用匿名空间, 不要再.h文件中使用匿名空间
+<pre class="brush: c++">
+  namespace {
+    ...
+  } // namespace
+</pre>
+
+<li>
+具名空间的使用方式
+
+<ul>
+<li>
+把除文件包含、类的前置声明、gflags声明和定义以外的整个源文件包含起来
+<pre class="brush: c++">
+        // .h 文件
+        namespace mynamespace {
+        // 所有声明都置于命名空间中
+        // 注意不要使用缩进
+        class MyClass {
+         public:
+                …
+            void Foo();
+        };
+        } // namespace mynamespace
+        
+        // .cpp 文件
+        namespace mynamespace {
+        // 函数定义都置于命名空间中
+        void MyClass::Foo() {
+        …
+        }
+        } // namespace mynamespace
+</pre>
+
+<li>
+最好不用在名字空间里使用<code>using</code>关键字，避免污染名字空间。
+
+<li>
+在.cc文件(名字空间外), .h文件的函数, 方法或类中, 可以使用<code>using</code> 关键字。
+
+<li>
+允许在.cc 文件(名字空间外)、封装整个.h 文件的具名名字空间内、函数或方法中使用名字空间别名。
+      <code>namespace fbz = ::foo::bar::baz;</code>
+
+</ul>
+<li>
+类中声明区段顺序为: public, protected, private。每次缩进一个空格。每个区段类声明顺序如下：
+
+<ul>
+<li>
+typedefs 和枚举
+
+<li>
+常量（static const 数据成员）
+
+<li>
+构造函数
+
+<li>
+析构函数
+
+<li>
+成员函数, 含静态成员函数
+
+<li>
+数据成员（除了static const 数据成员）
+<pre class="brush: c++">
+class MyClass : public OtherClass {
+ public: // Note the 1 space indent!
+    MyClass(); // Regular 2 space indent.
+    explicit MyClass(int var);
+    ~MyClass() {}
+    void SomeFunction();
+    void SomeFunctionThatDoesNothing() {
+    }
+    void set_some_var(int var) { some_var_ = var; }
+    int some_var() const { return some_var_; }
+ private:
+    bool SomeInternalFunction();
+    int some_var_;
+    int some_other_var_;
+    DISALLOW_COPY_AND_ASSIGN(MyClass);
+};
+
+</pre>
+
+</ul>
+<li>
+友元声明应当总是放在私有区段，对宏DISALLOW_COPY_AND_ASSIGN 的调用放在private区段的末尾.
+
+<li>
+函数定义，函数调用的风格也类似
+<pre class="brush: c++">
+// 返回类型和函数名在同一行, 参数也尽量放在同一行
+ReturnType ClassName::FunctionName(Type par_name1, Type par_name2) {
+    DoSomething();
+    ...
+}
+
+// 如果同一行文本太多, 放不下所有参数:
+ReturnType ClassName::ReallyLongFunctionName(Type par_name1,
+                                             Type par_name2,
+                                             Type par_name3) {
+    DoSomething();
+    ...
+}
+
+// 甚至连第一个参数都放不下:
+ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
+        Type par_name1, // 4 space indent
+        Type par_name2,
+        Type par_name3) {
+    DoSomething(); // 2 space indent
+    ...
+}
+
+// 函数声明成const:
+ReturnType FunctionName(Type par) const {
+    ...
+}
+</pre>
+
+<li>
+
+<pre class="brush: c++">
+if (condition) { // no spaces inside parentheses
+    ... // 2 space indent.
+} else { // The else goes on the same line as the closing brace.
+    ...
+}
+
+if (x == kFoo) return new Foo();
+
+// case 里面的大括号是否使用取决于自己
+switch (var) {
+    case 0: { // 2 space indent
+        ... // 4 space indent
+        break;
+    }
+    case 1: {
+        ...
+        break;
+    }
+    default: {
+        assert(false);
+    }
+}
+
+空循环体应使用{} 或continue, 而不是一个简单的分号.
+for (int i = 0; i &lt; kSomeNumber; ++i) {} // Good - empty body.
+while (condition) continue; // Good - continue indicates no logic.
+
+if (this_one_thing &gt; this_other_thing &amp;&amp;
+    a_third_thing == a_fourth_thing &amp;&amp;
+    yet_another &amp;&amp; last_one) {
+    ...
+}
+
+if (lopsided_score) {
+#if DISASTER_PENDING // Correct -- Starts at beginning of line
+    DropEverything();
+#endif
+    BackToNormal();
+}
+
+namespace {
+void foo() { // 正确,名字空间内无需额外缩进
+    ...
+}
+} // namespace
+
+</pre>
+
+<li>
+构造函数初始化列表放在同一行或按2个tab(需要转空格)缩进并排几行.
+<pre class="brush: c++">
+// When it all fits on one line:
+MyClass::MyClass(int var) : some_var_(var), some_other_var_(var + 1) {
+    ...
+}
+或
+MyClass::MyClass(int var)
+        : some_var_(var), // 2 tab(需要转空格)
+          some_other_var_(var + 1) { // lined up
+    ...
+    DoSomething();
+    ...
+}
+</pre>
+
+<li>
+水平留白的使用因地制宜.  永远不要在行尾添加没意义的留白.垂直留白越少越好.
+
+<ul>
+<li>
+函数体首尾的空行对可读性毫无帮助。
+
+<li>
+if-else 连锁代码段间的空行对可读性可能有所帮助。
+
+</ul>
+</ol>
+
+            </div>
+
+        <script src="syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var root_path='';
+            function path()
+                {
+                    var scripts_path=root_path+'syntaxhighlighter/scripts/';
+                    var args = arguments, result = [];
+                    for(var i = 0; i < args.length; i++)
+                        result.push(args[i].replace('@', scripts_path));
+                    return result
+                };
+                SyntaxHighlighter.autoloader.apply(null, path(
+                            'applescript            @shBrushAppleScript.js',
+                            'actionscript3 as3      @shBrushAS3.js',
+                            'bash shell             @shBrushBash.js',
+                            'powershell ps          @shBrushPowerShell.js',
+                            'coldfusion cf          @shBrushColdFusion.js',
+                            'cpp c                  @shBrushCpp.js',
+                            'c# c-sharp csharp      @shBrushCSharp.js',
+                            'css                    @shBrushCss.js',
+                            'delphi pascal          @shBrushDelphi.js',
+                            'diff patch pas         @shBrushDiff.js',
+                            'erl erlang             @shBrushErlang.js',
+                            'groovy                 @shBrushGroovy.js',
+                            'java                   @shBrushJava.js',
+                            'jfx javafx             @shBrushJavaFX.js',
+                            'js jscript javascript  @shBrushJScript.js',
+                            'perl pl                @shBrushPerl.js',
+                            'php                    @shBrushPhp.js',
+                            'text plain             @shBrushPlain.js',
+                            'py python              @shBrushPython.js',
+                            'ruby rails ror rb      @shBrushRuby.js',
+                            'sass scss              @shBrushSass.js',
+                            'scala                  @shBrushScala.js',
+                            'sql                    @shBrushSql.js',
+                            'vb vbnet               @shBrushVb.js',
+                            'xml xhtml xslt html    @shBrushXml.js'
+                            ));
+            SyntaxHighlighter.config.space=' ';//消除Chrome复制时的空白BUG
+            <!--SyntaxHighlighter.config.clipboardSwf = '"syntaxhighlighter/scripts/clipboard.swf'-->
+            <!--SyntaxHighlighter.config.strings = {-->
+                <!--expandSource : '展开代码',-->
+                    <!--viewSource : '查看代码',-->
+                    <!--copyToClipboard : '复制代码',-->
+                    <!--copyToClipboardConfirmation : '代码复制成功',-->
+                    <!--print : '打印',-->
+                    <!--help : '?',-->
+                    <!--alert: '语法高亮\n\n',-->
+                    <!--noBrush : '不能找到刷子: ',-->
+                    <!--brushNotHtmlScript : '刷子没有配置html-script选项',-->
+                    <!--aboutDialog : '<div></div>'-->
+                    <!--}-->
+            
+            SyntaxHighlighter.all();
+            </script>
+        </body>
+    </html>
+

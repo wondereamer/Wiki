@@ -171,6 +171,12 @@ frame.ix[frame['column']&gt;5, 3:]
 start = df.index.searchsorted(dt.datetime(2013, 1, 2))    // search the nearest range, even start and end don't exit 
   end = df.index.searchsorted(dt.datetime(2013, 1, 4))
 
+<li>
+dt, series = df.iterrows()
+
+<li>
+k, v = series.iterkv()
+
 </ol>
  
 <h2 id="toc_1.5">operation</h2>

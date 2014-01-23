@@ -47,6 +47,8 @@
 # frame.ix[frame['column']>5, 3:]
 # start = df.index.searchsorted(dt.datetime(2013, 1, 2))    // search the nearest range, even start and end don't exit 
   end = df.index.searchsorted(dt.datetime(2013, 1, 4))
+# dt, series = df.iterrows()
+# k, v = series.iterkv()
  
 == operation ==
 # df1 + df2

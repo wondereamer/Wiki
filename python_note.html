@@ -37,6 +37,43 @@ list 加上 numpy类型，会把list 转化为numpy类型的数组，然后运算，且返回numpy类型的
 <li>
 cursor 占用两条线ax.lines  ax.axhline()占用一条线
 
+<li>
+functools.partial(func, arg1, arg2) would bind arguments to function, making
+  it more straightforward to use
+
+<li>
+dict.get(val, func) could be used as 'switch' function
+
+<li>
+星号的拆解 
+<pre class="brush: python; highlight: [2]">
+  &gt;&gt;&gt; def add(a, b, c):
+  ...     return a + b + c
+  ...
+  &gt;&gt;&gt; add(1, 2, 3)
+  6
+  &gt;&gt;&gt; add(a=4, b=5, c=6)
+  15
+  &gt;&gt;&gt; args = (2, 3)
+  &gt;&gt;&gt; add(1, *args)
+  6
+  &gt;&gt;&gt; kwargs={'b': 8, 'c': 9}
+  &gt;&gt;&gt; add(a=7, **kwargs)
+  24
+</pre>
+
+<li>
+itertools.imap, itertools.ifilter
+
+<li>
+返回iterator后， 返回该iterator的函数只在第一次被使用的时候被调用, 因为生成器可以挂起，所以是延迟计算的，无限循环并没有关系
+
+<li>
+self._<em>dict</em>_ = {'a':3, 'b':4} 直接给类型增加了属性
+
+<li>
+assert condition, "message" 
+
 </ol>
 
 </body>

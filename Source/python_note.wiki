@@ -9,3 +9,26 @@
 # matplotlib.plot "visible" attribution could hide some detail
 # list 加上 numpy类型，会把list 转化为numpy类型的数组，然后运算，且返回numpy类型的数组 也就是说Python有运算符重载功能！
 # cursor 占用两条线ax.lines  ax.axhline()占用一条线
+# functools.partial(func, arg1, arg2) would bind arguments to function, making
+  it more straightforward to use
+# dict.get(val, func) could be used as 'switch' function
+# 星号的拆解 
+{{{class="brush: python; highlight: [2]"
+  >>> def add(a, b, c):
+  ...     return a + b + c
+  ...
+  >>> add(1, 2, 3)
+  6
+  >>> add(a=4, b=5, c=6)
+  15
+  >>> args = (2, 3)
+  >>> add(1, *args)
+  6
+  >>> kwargs={'b': 8, 'c': 9}
+  >>> add(a=7, **kwargs)
+  24
+}}}
+# itertools.imap, itertools.ifilter
+# 返回iterator后， 返回该iterator的函数只在第一次被使用的时候被调用, 因为生成器可以挂起，所以是延迟计算的，无限循环并没有关系
+# self.__dict__ = {'a':3, 'b':4} 直接给类型增加了属性
+# assert condition, "message" 

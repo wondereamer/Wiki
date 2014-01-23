@@ -3,6 +3,7 @@
 %toc 
 = 内容 =
 * [[python|PEP8 Python 编码规范]]
+* [[C++ Google 编程规范摘要]] 
 * [[Demo|VimWiki 教程]]
 * [[Stock|期货]]
 * [[程序化]]
