@@ -1,7 +1,7 @@
 %template header
 %title Data Analysis
 %toc 
-[[index|Ö÷Ò³]]
+[[index|ä¸»é¡µ]]
 = Panda =
 == Series ==
 # We could see Series as a fixed-length, ordered dict
