@@ -1,15 +1,15 @@
 %template header
 %title wondereamer
 %toc 
-= 内容 =
-* [[python|PEP8 Python 编码规范]]
-* [[C++ Google 编程规范摘要]] 
-* [[Demo|VimWiki 教程]]
-* [[Stock|期货]]
-* [[程序化]]
+= 鍐呭 =
+* [[python|PEP8 Python 缂栫爜瑙勮寖]]
+* [[C++ Google 缂栫▼瑙勮寖鎽樿]] 
+* [[Demo|VimWiki 鏁欑▼]]
+* [[Stock|鏈熻揣]]
+* [[绋嬪簭鍖朷]
 * [[todo|ToDoList]]
 * [[python_note]]
 * [[Data Anlysis]]
 
-= 日志 =
-[[diary/diary|日志主页]]
+= 鏃ュ織 =
+[[diary/diary|鏃ュ織涓婚〉]]

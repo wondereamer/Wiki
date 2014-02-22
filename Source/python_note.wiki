@@ -1,5 +1,5 @@
-# yield ·µ»Øgenerator
-# sys.path ÏµÍ³Â·¾¶£¬¿ÉÒÔÔÚÕâÀïÌí¼ÓÄ£¿éËÑË÷Â·¾¶
+# yield è¿”å›generator
+# sys.path ç³»ç»Ÿè·¯å¾„ï¼Œå¯ä»¥åœ¨è¿™é‡Œæ·»åŠ æ¨¡å—æœç´¢è·¯å¾„
 # np.sum(n * np.diff(bins))
   I get a return value of 1.0 as expected. Remember that normed=True doesn't mean that the sum of 
   the value at each bar will be unity, but rather than the integral over the bars is unity.
@@ -7,12 +7,12 @@
 # blist -- package
 # bottleneck -- package
 # matplotlib.plot "visible" attribution could hide some detail
-# list ¼ÓÉÏ numpyÀàĞÍ£¬»á°Ñlist ×ª»¯ÎªnumpyÀàĞÍµÄÊı×é£¬È»ºóÔËËã£¬ÇÒ·µ»ØnumpyÀàĞÍµÄÊı×é Ò²¾ÍÊÇËµPythonÓĞÔËËã·ûÖØÔØ¹¦ÄÜ£¡
-# cursor Õ¼ÓÃÁ½ÌõÏßax.lines  ax.axhline()Õ¼ÓÃÒ»ÌõÏß
+# list åŠ ä¸Š numpyç±»å‹ï¼Œä¼šæŠŠlist è½¬åŒ–ä¸ºnumpyç±»å‹çš„æ•°ç»„ï¼Œç„¶åè¿ç®—ï¼Œä¸”è¿”å›numpyç±»å‹çš„æ•°ç»„ ä¹Ÿå°±æ˜¯è¯´Pythonæœ‰è¿ç®—ç¬¦é‡è½½åŠŸèƒ½ï¼
+# cursor å ç”¨ä¸¤æ¡çº¿ax.lines  ax.axhline()å ç”¨ä¸€æ¡çº¿
 # functools.partial(func, arg1, arg2) would bind arguments to function, making
   it more straightforward to use
 # dict.get(val, func) could be used as 'switch' function
-# ĞÇºÅµÄ²ğ½â 
+# æ˜Ÿå·çš„æ‹†è§£ 
 {{{class="brush: python; highlight: [2]"
   >>> def add(a, b, c):
   ...     return a + b + c
@@ -29,6 +29,6 @@
   24
 }}}
 # itertools.imap, itertools.ifilter
-# ·µ»Øiteratorºó£¬ ·µ»Ø¸ÃiteratorµÄº¯ÊıÖ»ÔÚµÚÒ»´Î±»Ê¹ÓÃµÄÊ±ºò±»µ÷ÓÃ, ÒòÎªÉú³ÉÆ÷¿ÉÒÔ¹ÒÆğ£¬ËùÒÔÊÇÑÓ³Ù¼ÆËãµÄ£¬ÎŞÏŞÑ­»·²¢Ã»ÓĞ¹ØÏµ
-# self.__dict__ = {'a':3, 'b':4} Ö±½Ó¸øÀàĞÍÔö¼ÓÁËÊôĞÔ
+# è¿”å›iteratoråï¼Œ è¿”å›è¯¥iteratorçš„å‡½æ•°åªåœ¨ç¬¬ä¸€æ¬¡è¢«ä½¿ç”¨çš„æ—¶å€™è¢«è°ƒç”¨, å› ä¸ºç”Ÿæˆå™¨å¯ä»¥æŒ‚èµ·ï¼Œæ‰€ä»¥æ˜¯å»¶è¿Ÿè®¡ç®—çš„ï¼Œæ— é™å¾ªç¯å¹¶æ²¡æœ‰å…³ç³»
+# self.__dict__ = {'a':3, 'b':4} ç›´æ¥ç»™ç±»å‹å¢åŠ äº†å±æ€§
 # assert condition, "message" 
