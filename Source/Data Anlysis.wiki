@@ -1,7 +1,4 @@
-%template header
-%title Data Analysis
-%toc 
-[[index|主页]]
+
 = Panda =
 == Series ==
 # We could see Series as a fixed-length, ordered dict
